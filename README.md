@@ -1,14 +1,31 @@
-# SDG Food Waste Tracker
+# SDG Food Waste App Tracker
 
-A web application designed to track and analyze food waste across various sectors, supporting the United Nations **Sustainable Development Goal (SDG) 12: Responsible Consumption and Production**.
-
-The app provides insights for individuals, households, businesses, and organizations to measure, monitor, and reduce food waste. It will be deployed on **Vercel** and integrated with **Google Analytics** for user activity and monetization tracking.
+A web application that tracks food waste in different sectors (households, restaurants, schools, etc.).  
+Built with **Next.js** (frontend), deployed on **Vercel**, and integrated with **Google Analytics** for usage tracking.
 
 ---
 
-## 📌 Problem Statement
+## 🚀 Problem Statement
+Food waste is a global challenge that contributes to hunger, environmental issues, and resource mismanagement.  
+In Nigeria and beyond, there’s a growing need for **tools that help track, measure, and reduce food waste** across industries.
 
-Food waste is one of the most pressing global challenges:  
-- According to the UN, **over 1.3 billion tons of food** is wasted globally each year.  
-- In Nigeria and many other developing countries, food waste happens along the entire supply chain — from production to households.  
-- This waste contributes not only to **hunger** (as millions lack adequate nutrition) but also to **climate change**, as rotting food in landfills emits harmful greenhouse gases.# SDG-Food-Waste-App-Tracker
+---
+
+## 🎯 Market Analysis
+- **Households** often over-purchase food, leading to spoilage.  
+- **Restaurants & Hotels** struggle with portion control and excess meals.  
+- **Schools & Institutions** dispose of large amounts of food daily.  
+- Tracking and analyzing this waste helps **reduce costs, improve sustainability, and support SDG 12 (Responsible Consumption & Production).**
+
+---
+
+## 🛠️ Tech Stack
+- **Frontend**: Next.js 15  
+- **Styling**: Tailwind CSS  
+- **Deployment**: Vercel  
+- **Analytics**: Google Analytics  
+- **Future Plans**: Payment integration (Paystack, Flutterwave, or Monnify API)  
+
+---
+
+## 📂 Project Structure
