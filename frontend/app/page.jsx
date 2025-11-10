@@ -1,77 +1,100 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabaseClient";
 
 export default function Home() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [wasteData, setWasteData] = useState([]);
+  const [sector, setSector] = useState("");
+  const [waste, setWaste] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  // Fetch data from /api/waste when the page loads
+  // Fetch data from Supabase
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await fetch("/api/waste");
-        const json = await res.json();
-        setData(json);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
+    const fetchWasteData = async () => {
+      let { data, error } = await supabase.from("waste").select("*");
+      if (error) {
+        console.error("Error fetching waste data:", error);
+      } else {
+        setWasteData(data);
       }
-    }
-    fetchData();
+    };
+    fetchWasteData();
   }, []);
 
-  const exportToCSV = () => {
-    if (!data.length) return;
+  // Handle form submission (add new record)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-    const headers = ["Sector", "Waste (kg)"];
-    const rows = data.map(item => [item.sector, item.waste]);
+    const { data, error } = await supabase
+      .from("waste")
+      .insert([{ sector, waste: Number(waste) }]);
 
-    let csvContent =
-      "data:text/csv;charset=utf-8," +
-      [headers, ...rows].map(e => e.join(",")).join("\n");
-
-    const link = document.createElement("a");
-    link.href = encodeURI(csvContent);
-    link.download = "waste-data.csv";
-    link.click();
+    if (error) {
+      console.error("Insert error:", error);
+    } else {
+      setWasteData((prev) => [...prev, ...data]);
+      setSector("");
+      setWaste("");
+    }
+    setLoading(false);
   };
 
-  if (loading) return <p>Loading...</p>;
-
   return (
-    <main style={{ padding: "20px", fontFamily: "Arial" }}>
-      <h1>SDG Food Waste Tracker</h1>
-      <table border="1" cellPadding="10" style={{ marginTop: "20px" }}>
-        <thead>
-          <tr>
-            <th>Sector</th>
-            <th>Waste (kg)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item, i) => (
-            <tr key={i}>
-              <td>{item.sector}</td>
-              <td>{item.waste}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <main className="min-h-screen flex flex-col items-center justify-center p-6 bg-gray-100">
+      <h1 className="text-2xl font-bold mb-4 text-green-700">
+        ♻️ SDG Food Waste Tracker
+      </h1>
 
-      <button
-        onClick={exportToCSV}
-        style={{
-          marginTop: "20px",
-          padding: "10px 15px",
-          backgroundColor: "green",
-          color: "white",
-          border: "none",
-          cursor: "pointer",
-        }}
-      >
-        Export to CSV
-      </button>
+      <form onSubmit={handleSubmit} className="bg-white p-4 rounded-xl shadow-md mb-6 w-full max-w-sm">
+        <input
+          type="text"
+          placeholder="Sector"
+          value={sector}
+          onChange={(e) => setSector(e.target.value)}
+          className="w-full p-2 border mb-3 rounded"
+          required
+        />
+        <input
+          type="number"
+          placeholder="Waste (kg)"
+          value={waste}
+          onChange={(e) => setWaste(e.target.value)}
+          className="w-full p-2 border mb-3 rounded"
+          required
+        />
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
+        >
+          {loading ? "Saving..." : "Add Record"}
+        </button>
+      </form>
+
+      <div className="bg-white p-4 rounded-xl shadow-md w-full max-w-md">
+        <h2 className="text-lg font-semibold mb-2 text-gray-800">Waste Records</h2>
+        {wasteData.length > 0 ? (
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr>
+                <th className="border-b p-2">Sector</th>
+                <th className="border-b p-2">Waste (kg)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {wasteData.map((item, index) => (
+                <tr key={index}>
+                  <td className="border-b p-2">{item.sector}</td>
+                  <td className="border-b p-2">{item.waste}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p className="text-gray-500">No data yet</p>
+        )}
+      </div>
     </main>
   );
 }

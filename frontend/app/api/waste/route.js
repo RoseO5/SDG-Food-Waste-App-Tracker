@@ -1,21 +1,24 @@
-export async function GET() {
-  const sampleData = [
-    { sector: "Households", wasteKg: 25 },
-    { sector: "Restaurants", wasteKg: 40 },
-    { sector: "Schools", wasteKg: 15 }
-  ];
+import { supabase } from "@/lib/supabaseClient";
 
-  return new Response(JSON.stringify(sampleData), {
-    headers: { "Content-Type": "application/json" }
-  });
+export async function GET() {
+  const { data, error } = await supabase.from("waste").select("*");
+
+  if (error) {
+    return Response.json({ error: error.message }, { status: 500 });
+  }
+
+  return Response.json(data);
 }
 
 export async function POST(request) {
   const body = await request.json();
+  const { sector, waste } = body;
 
-  // In a real app, save to a database
-  return new Response(
-    JSON.stringify({ message: "Waste record received", data: body }),
-    { headers: { "Content-Type": "application/json" } }
-  );
+  const { data, error } = await supabase.from("waste").insert([{ sector, waste }]);
+
+  if (error) {
+    return Response.json({ error: error.message }, { status: 500 });
+  }
+
+  return Response.json({ message: "Record added successfully", data });
 }
