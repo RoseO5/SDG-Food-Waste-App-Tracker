@@ -1,4 +1,3 @@
-// client/app/api/waste/route.js
 import clientPromise from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
@@ -66,4 +65,4 @@ export async function DELETE(request) {
   } catch (err) {
     return Response.json({ error: err.message }, { status: 500 });
   }
-}}
+}

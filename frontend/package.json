@@ -1,22 +1,24 @@
 {
-  "name": "frontend",
+  "name": "client",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --hostname 0.0.0.0",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
-    "mongodb": "^6.6.2",
-    "next": "15.5.4",
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "autoprefixer": "latest",
+    "mongodb": "latest",
+    "next": "latest",
+    "postcss": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "tailwindcss": "latest"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.17",
-    "autoprefixer": "^10.4.22",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.17"
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest"
   }
 }
