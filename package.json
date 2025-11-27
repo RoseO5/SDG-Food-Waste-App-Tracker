@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "sdg-food-waste-app-tracker",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -9,14 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "autoprefixer": "^10.4.19",
-    "@tailwindcss/postcss": "^1.0.0",
-    "clsx": "^2.1.0",
-    "next": "15.0.3",
-    "postcss": "^8.4.38",
+    "clsx": "latest",
+    "mongodb": "latest",
+    "mongoose": "latest",
+    "next": "14.2.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "tailwindcss": "4.0.0"
+    "react-chartjs-2": "latest",
+    "chart.js": "latest"
+  },
+  "devDependencies": {
+    "autoprefixer": "latest",
+    "postcss": "latest",
+    "tailwindcss": "latest"
   }
 }
-
