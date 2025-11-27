@@ -5,12 +5,7 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: {
-      fontFamily: {
-        sans: ['system-ui', 'sans-serif'],
-        mono: ['monospace']
-      }
-    },
+    extend: {},
   },
   plugins: [],
-}
+};

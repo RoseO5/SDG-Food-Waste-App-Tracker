@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Optional: import Geist fonts if you want */
-@import url('https://fonts.googleapis.com/css2?family=Geist&family=Geist+Mono&display=swap');
+/* Optional Google font to replace Geist */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
 body {
-  font-family: 'Geist', system-ui, sans-serif;
+  font-family: 'Inter', sans-serif;
 }
